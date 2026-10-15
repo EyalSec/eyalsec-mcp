@@ -26,6 +26,11 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    # Keep the image on the Python version chosen in the Dockerfile; only
+    # refresh its digest. Moving to a new Python version is a deliberate change.
+    ignore:
+      - dependency-name: "python"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
     groups:
       docker:
         patterns:
