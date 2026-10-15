@@ -7,7 +7,8 @@
   "websiteUrl": "https://eyalsec.com",
   "repository": {
     "url": "https://github.com/EyalSec/eyalsec-mcp",
-    "source": "github"
+    "source": "github",
+    "id": "1420610877"
   },
   "packages": [
     {
