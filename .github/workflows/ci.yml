@@ -53,11 +53,15 @@ jobs:
         run: docker build -t eyalsec-mcp .
       - name: The server answers an MCP initialize and tools/list with no key set
         run: |
-          printf '%s\n' \
-            '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"ci","version":"0"}}}' \
-            '{"jsonrpc":"2.0","method":"notifications/initialized"}' \
-            '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \
-            | timeout 60 docker run --rm -i eyalsec-mcp > out.jsonl || true
+          # stdin stays open for a few seconds after the last request: closing
+          # it at once can end the session before tools/list is answered.
+          {
+            printf '%s\n' \
+              '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"ci","version":"0"}}}' \
+              '{"jsonrpc":"2.0","method":"notifications/initialized"}' \
+              '{"jsonrpc":"2.0","id":2,"method":"tools/list"}'
+            sleep 10
+          } | timeout 60 docker run --rm -i eyalsec-mcp > out.jsonl || true
           cat out.jsonl
           grep -q '"search_events"' out.jsonl
 
