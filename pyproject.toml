@@ -1,0 +1,68 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "eyalsec-mcp"
+version = "0.1.0"
+description = "MCP server for reading your EyalSec security events, machines, runs and rules from an AI assistant."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "EyalSec", email = "support@eyalsec.com" }]
+keywords = [
+    "mcp", "model context protocol", "mcp server", "eyalsec", "es-python",
+    "application security", "security events", "taint tracking", "claude", "cursor",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Security",
+]
+dependencies = [
+    "mcp>=2.3,<3",
+    "httpx>=0.27",
+    "pydantic>=2.7",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8", "anyio>=4"]
+
+[project.scripts]
+eyalsec-mcp = "eyalsec_mcp.__main__:main"
+
+[project.urls]
+Homepage = "https://eyalsec.com"
+Documentation = "https://eyalsec.com/docs/api"
+Source = "https://github.com/EyalSec/eyalsec-mcp"
+Issues = "https://github.com/EyalSec/eyalsec-mcp/issues"
+Pricing = "https://eyalsec.com/pricing"
+"Book a demo" = "https://eyalsec.com/contact"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/eyalsec_mcp"]
+
+[tool.hatch.build.targets.sdist]
+only-include = ["src/eyalsec_mcp", "tests", "README.md", "LICENSE", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]

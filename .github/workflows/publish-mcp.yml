@@ -1,0 +1,59 @@
+# Lists this server in the official MCP Registry (registry.modelcontextprotocol.io).
+#
+# Release order: upload the version to PyPI first (the registry checks that the
+# PyPI package exists and that its README carries the mcp-name line), then push
+# the matching tag, vX.Y.Z. Authentication is GitHub OIDC, so no secret is
+# stored in this repository.
+name: Publish to MCP Registry
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Check versions agree
+        run: |
+          v=$(jq -r .version server.json)
+          test "$(jq -r '.packages[0].version' server.json)" = "$v"
+          grep -q "^version = \"$v\"$" pyproject.toml
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then test "${GITHUB_REF_NAME}" = "v$v"; fi
+          echo "VERSION=$v" >> "$GITHUB_ENV"
+
+      - name: Wait for the PyPI release
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS "https://pypi.org/pypi/eyalsec-mcp/${VERSION}/json" >/dev/null; then exit 0; fi
+            sleep 20
+          done
+          echo "eyalsec-mcp ${VERSION} is not on PyPI; upload it first" >&2
+          exit 1
+
+      - name: Install mcp-publisher
+        env:
+          MCP_PUBLISHER_VERSION: v1.8.1
+        run: |
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/download/${MCP_PUBLISHER_VERSION}/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
+          ./mcp-publisher --version || true
+
+      - name: Log in with GitHub OIDC
+        run: ./mcp-publisher login github-oidc
+
+      - name: Publish
+        run: ./mcp-publisher publish
+
+      - name: Confirm the listing
+        run: |
+          sleep 5
+          curl -fsS "https://registry.modelcontextprotocol.io/v0/servers?search=io.github.EyalSec/eyalsec-mcp" | jq '.servers[] | {name: .server.name, version: .server.version, status: ._meta["io.modelcontextprotocol.registry/official"].status}'

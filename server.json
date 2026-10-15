@@ -1,0 +1,41 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.EyalSec/eyalsec-mcp",
+  "title": "EyalSec",
+  "description": "Read your EyalSec security events, machines, runs and rules from an AI assistant.",
+  "version": "0.1.0",
+  "websiteUrl": "https://eyalsec.com",
+  "repository": {
+    "url": "https://github.com/EyalSec/eyalsec-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "pypi",
+      "registryBaseUrl": "https://pypi.org",
+      "identifier": "eyalsec-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "uvx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "EYALSEC_API_KEY",
+          "description": "Your EyalSec API key, from Settings > API access. A read-only key is enough.",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "EYALSEC_URL",
+          "description": "Your EyalSec address, if your account is not on https://eyalsec.com.",
+          "isRequired": false,
+          "isSecret": false,
+          "format": "string",
+          "default": "https://eyalsec.com"
+        }
+      ]
+    }
+  ]
+}
