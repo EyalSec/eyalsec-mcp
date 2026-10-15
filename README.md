@@ -59,6 +59,15 @@ Add the same block to `~/.cursor/mcp.json` (every project) or `.cursor/mcp.json`
 }
 ```
 
+### Docker
+
+```bash
+docker build -t eyalsec-mcp https://github.com/EyalSec/eyalsec-mcp.git
+docker run --rm -i -e EYALSEC_API_KEY=es2_your_read_only_key eyalsec-mcp
+```
+
+Use the second line as the command in any client's configuration.
+
 ### Any other MCP client
 
 Run `uvx eyalsec-mcp` as a stdio server with `EYALSEC_API_KEY` set. To check the key before wiring it into a client:
