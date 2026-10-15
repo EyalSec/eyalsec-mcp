@@ -1,5 +1,7 @@
 # EyalSec MCP server
 
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/EyalSec/eyalsec-mcp/badge)](https://scorecard.dev/viewer/?uri=github.com/EyalSec/eyalsec-mcp)
+
 Ask your AI assistant about your EyalSec account in plain words: "what critical events came in since Monday?", "show me the full trace for event 90210", "which machines need an update?". This server gives Claude, Cursor and any other MCP client read access to your events, machines, runs and rules through the [EyalSec API](https://eyalsec.com/docs/api), so the assistant you already use for code review can also help you triage what EyalSec found.
 
 <!-- mcp-name: io.github.EyalSec/eyalsec-mcp -->
