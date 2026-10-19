@@ -3,7 +3,7 @@
   "name": "io.github.EyalSec/eyalsec-mcp",
   "title": "EyalSec",
   "description": "Read your EyalSec security events, machines, runs and rules from an AI assistant.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "websiteUrl": "https://eyalsec.com",
   "repository": {
     "url": "https://github.com/EyalSec/eyalsec-mcp",
@@ -15,7 +15,7 @@
       "registryType": "pypi",
       "registryBaseUrl": "https://pypi.org",
       "identifier": "eyalsec-mcp",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "runtimeHint": "uvx",
       "transport": {
         "type": "stdio"

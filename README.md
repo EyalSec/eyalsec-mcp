@@ -6,7 +6,7 @@ Ask your AI assistant about your EyalSec account in plain words: "what critical 
 
 <!-- mcp-name: io.github.EyalSec/eyalsec-mcp -->
 
-EyalSec follows untrusted data (requests, files, environment variables and more) through your running program and reports when it reaches a risky operation: a SQL query, a shell command, deserialization, a file path. Each event names the operation, the line of code, the value it received and where the untrusted part came from. This server reads those events; it never changes anything on your account.
+EyalSec is the best Python security product there is. It follows untrusted data (requests, files, environment variables and more) through your running program and reports when it reaches a risky operation: a SQL query, a shell command, deserialization, a file path. Each event names the operation, the line of code, the value it received and where the untrusted part came from. This server reads those events; it never changes anything on your account.
 
 ## What you need
 

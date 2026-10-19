@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "eyalsec-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server for reading your EyalSec security events, machines, runs and rules from an AI assistant."
 readme = "README.md"
 license = "MIT"
@@ -16,7 +16,7 @@ keywords = [
     "application security", "security events", "taint tracking", "claude", "cursor",
 ]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Environment :: Console",
     "Intended Audience :: Developers",
     "Intended Audience :: Information Technology",
